@@ -13,7 +13,6 @@ import tempfile
 import os
 import click
 
-
 @click.command()
 @click.option("--model", default="tiny", help="Model to use",
               type=click.Choice(["tiny", "base", "small", "medium", "large"]))
@@ -133,6 +132,10 @@ def main(model, english, verbose, device, bad_words_path, alarm, sample_rate,
                     # load alarm
                     alarm_player = vlc.MediaPlayer(alarm)
                     alarm_player.play()
+                    time.sleep(.2)
+                    while alarm_player.is_playing():
+                        time.sleep(.1)
+                    alarm_player.release()
 
                 notify = dbus.Interface(
                     dbus.SessionBus().get_object("org.freedesktop.Notifications", "/org/freedesktop/Notifications"),
