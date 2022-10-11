@@ -22,10 +22,11 @@ import click
 @click.option("--bad-words-path", default="bad_words.txt", help="Path to badwords file", type=str)
 @click.option("--alarm", default="alarm.mp3", help="Alarm sound path", type=str)
 @click.option("--sample-rate", default=64_000, help="Sample rate of audio", type=int)
-@click.option("--sample-buffer-size", default=3, help="Sample buffer for maximum amount of input that can persist", type=float)
+@click.option("--read-seconds", default=.5, help="Amount of seconds to read from the mic before queuing", type=float)
+@click.option("--time-buffer", default=3, help="Size of the input buffer in seconds", type=float)
 @click.option("--alert-icon", default="swear.png", help="Path to icon for swear bot notifications", type=str)
-def main(model, english, verbose, device, bad_words_path, alarm, sample_rate,
-         sample_buffer_size, alert_icon):
+def main(model, english, verbose, device, bad_words_path, alarm, sample_rate, read_seconds,
+         time_buffer, alert_icon):
     alert_icon = os.path.abspath(alert_icon)
     alarm = os.path.abspath(alarm)
 
@@ -54,7 +55,7 @@ def main(model, english, verbose, device, bad_words_path, alarm, sample_rate,
 
                 buffer.append(audio_data)
                 timestamps.append(timestamp)
-                if len(buffer) > sample_buffer_size * 2:
+                if (len(buffer) * read_seconds) > time_buffer:
                     buffer.pop(0)
                     timestamps.pop(0)
 
@@ -149,7 +150,7 @@ def main(model, english, verbose, device, bad_words_path, alarm, sample_rate,
         threading.Thread(target=process_sample, daemon=True).start()
 
         while True:
-            data = source.stream.read(sample_rate // 2)
+            data = source.stream.read(int(sample_rate * read_seconds))
 
             q.put((data, time.time()))
 
