@@ -5,6 +5,7 @@
 </h1>
 
 <h4 align="center">My girlfriend wants me to stop swearing. Let's ask <a href="https://github.com/openai/whisper" target="_blank">Whisper</a> for some help.</h4>
+<h5 align="center">Automatically detect swear words and alert using an audible sound and a DBus notification</h5>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
