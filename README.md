@@ -26,18 +26,16 @@
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Python](https://www.python.org/) installed on your computer. From your command line:
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/sam-ulrich1/i-swear-ill-stop
+# Clone this repo.
+git clone https://github.com/sam-ulrich1/i-swear-ill-stop
+cd i-swear-ill-stop
 
-# Go into the repository
-$ cd i-swear-ill-stop
+# Install this repo's dependencies.
+sudo apt install build-essential libdbus-glib-1-dev libgirepository1.0-dev ffmpeg portaudio19-dev
+pip install -r requirements.txt
 
-# Install dependencies
-$ sudo apt install build-essential libdbus-glib-1-dev libgirepository1.0-dev ffmpeg portaudio19-dev
-$ pip install -r requirements.txt
-
-# Run the app
-$ python main.py
+# Run the app!
+python main.py
 ```
 
 ## Credits
